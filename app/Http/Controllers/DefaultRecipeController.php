@@ -15,6 +15,8 @@ class DefaultRecipeController extends Controller
     public function index()
     {
         //
+
+        return response('Invalid Request', 403);
     }
 
     /**
@@ -25,6 +27,8 @@ class DefaultRecipeController extends Controller
     public function create()
     {
         //
+
+        return response('Invalid Request', 403);
     }
 
     /**
@@ -36,6 +40,8 @@ class DefaultRecipeController extends Controller
     public function store(Request $request)
     {
         //
+
+        return response('Invalid Request', 403);
     }
 
     /**
@@ -47,6 +53,8 @@ class DefaultRecipeController extends Controller
     public function show(DefaultRecipe $defaultRecipe)
     {
         //
+
+        return response('Invalid Request', 403);
     }
 
     /**
@@ -58,6 +66,8 @@ class DefaultRecipeController extends Controller
     public function edit(DefaultRecipe $defaultRecipe)
     {
         //
+
+        return response('Invalid Request', 403);
     }
 
     /**
@@ -70,6 +80,8 @@ class DefaultRecipeController extends Controller
     public function update(Request $request, DefaultRecipe $defaultRecipe)
     {
         //
+
+        return response('Invalid Request', 403);
     }
 
     /**
@@ -81,5 +93,7 @@ class DefaultRecipeController extends Controller
     public function destroy(DefaultRecipe $defaultRecipe)
     {
         //
+
+        return response('Invalid Request', 403);
     }
 }

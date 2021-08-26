@@ -15,6 +15,12 @@ class CreateOutputsTable extends Migration
     {
         Schema::create('outputs', function (Blueprint $table) {
             $table->id();
+            $table->string('device_mac');
+            $table->string('rgbw');
+            $table->string('led_stripe');
+            $table->string('fog');
+            $table->string('fan');
+            $table->string('crc');
             $table->timestamps();
         });
     }

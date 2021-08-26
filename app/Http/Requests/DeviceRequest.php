@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class AuthorsRequest extends FormRequest
+class DeviceRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,9 @@ class AuthorsRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|unique:authors|max:255'
+            //
+
+            'mac_address' => 'required|unique:devices',
         ];
     }
 }

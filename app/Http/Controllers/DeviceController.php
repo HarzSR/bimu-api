@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\DeviceRequest;
 use App\Http\Resources\DeviceResource;
 use App\Models\Device;
 use Illuminate\Http\Request;
@@ -18,7 +19,7 @@ class DeviceController extends Controller
     {
         //
 
-        return DeviceResource::collection(Device::where(['user_id' => auth('api')->user()->id])->get());
+        return (DeviceResource::collection(Device::where(['user_id' => auth('api')->user()->id])->get()))->response()->setStatusCode(200);
 
         // return response('Invalid Request', 403);
     }
@@ -31,6 +32,8 @@ class DeviceController extends Controller
     public function create()
     {
         //
+
+        return response('Invalid Request', 403);
     }
 
     /**
@@ -39,7 +42,7 @@ class DeviceController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(DeviceRequest $request)
     {
         //
 
@@ -52,7 +55,7 @@ class DeviceController extends Controller
             'status' => $data['status'],
         ]);
 
-        return new DeviceResource($device);
+        return (new DeviceResource($device))->response()->setStatusCode(200);
     }
 
     /**
@@ -80,11 +83,11 @@ class DeviceController extends Controller
                         'status' => null,
                     ]
                 ]
-            ]);
+            ], 200);
         }
         else
         {
-            return new DeviceResource(($device));
+            return (new DeviceResource(($device)))->response()->setStatusCode(200);
         }
     }
 
@@ -97,6 +100,8 @@ class DeviceController extends Controller
     public function edit(Device $device)
     {
         //
+
+        return response('Invalid Request', 403);
     }
 
     /**

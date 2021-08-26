@@ -15,6 +15,17 @@ class CreateInputsTable extends Migration
     {
         Schema::create('inputs', function (Blueprint $table) {
             $table->id();
+            $table->string('device_mac');
+            $table->float('temperature');
+            $table->float('humidity');
+            $table->float('light');
+            $table->float('temperature_probe');
+            $table->float('water_level');
+            $table->float('ec_probe');
+            $table->float('ph_probe');
+            $table->datetime('device_rtc');
+            $table->string('crc');
+            $table->tinyInteger('status');
             $table->timestamps();
         });
     }

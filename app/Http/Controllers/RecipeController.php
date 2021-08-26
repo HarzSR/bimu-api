@@ -19,7 +19,7 @@ class RecipeController extends Controller
     {
         //
 
-        return RecipeResource::collection(DefaultRecipe::all());
+        return (RecipeResource::collection(DefaultRecipe::all()))->response()->setStatusCode(200);
 
         // return response('Invalid Request', 403);
     }
@@ -32,6 +32,8 @@ class RecipeController extends Controller
     public function create()
     {
         //
+
+        return response('Invalid Request', 403);
     }
 
     /**
@@ -79,7 +81,7 @@ class RecipeController extends Controller
             'default' => $data['default'],
         ]);
 
-        return new RecipeResource($recipe);
+        return (new RecipeResource($recipe))->response()->setStatusCode(200);
     }
 
     /**
@@ -133,11 +135,11 @@ class RecipeController extends Controller
                         'default' => null,
                     ]
                 ]
-            ]);
+            ], 200);
         }
         else
         {
-            return new RecipeResource(($recipe));
+            return (new RecipeResource(($recipe)))->response()->setStatusCode(200);
         }
     }
 
@@ -150,6 +152,8 @@ class RecipeController extends Controller
     public function edit(Recipe $recipe)
     {
         //
+
+        return response('Invalid Request', 403);
     }
 
     /**

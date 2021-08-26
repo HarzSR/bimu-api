@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\InputController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RecipeController;
@@ -25,4 +26,5 @@ Route::middleware('auth:api')->prefix('v1')->group(function() {
 
     Route::apiResource('/recipes', RecipeController::class);
     Route::apiResource('/devices', DeviceController::class);
+    Route::apiResource('/inputs', InputController::class);
 });

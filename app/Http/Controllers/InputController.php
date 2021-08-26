@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\InputResource;
+use App\Models\Device;
 use App\Models\Input;
 use Illuminate\Http\Request;
 
@@ -15,6 +17,8 @@ class InputController extends Controller
     public function index()
     {
         //
+
+        return response('Invalid Request', 403);
     }
 
     /**
@@ -25,6 +29,8 @@ class InputController extends Controller
     public function create()
     {
         //
+
+        return response('Invalid Request', 403);
     }
 
     /**
@@ -36,6 +42,8 @@ class InputController extends Controller
     public function store(Request $request)
     {
         //
+
+        return response('Invalid Request', 403);
     }
 
     /**
@@ -44,9 +52,22 @@ class InputController extends Controller
      * @param  \App\Models\Input  $input
      * @return \Illuminate\Http\Response
      */
-    public function show(Input $input)
+    public function show($mac)
     {
         //
+
+        $checkDevice = Device::where(['mac_address' => $mac, 'user_id' => auth('api')->user()->id])->count();
+
+        if($checkDevice == 1)
+        {
+            $input = Input::latest()->where(['device_mac' => $mac])->first();
+
+            return (new InputResource($input))->response()->setStatusCode(200);
+        }
+        else
+        {
+
+        }
     }
 
     /**
@@ -58,6 +79,8 @@ class InputController extends Controller
     public function edit(Input $input)
     {
         //
+
+        return response('Invalid Request', 403);
     }
 
     /**
@@ -70,6 +93,8 @@ class InputController extends Controller
     public function update(Request $request, Input $input)
     {
         //
+
+        return response('Invalid Request', 403);
     }
 
     /**
@@ -81,5 +106,7 @@ class InputController extends Controller
     public function destroy(Input $input)
     {
         //
+
+        return response('Invalid Request', 403);
     }
 }
