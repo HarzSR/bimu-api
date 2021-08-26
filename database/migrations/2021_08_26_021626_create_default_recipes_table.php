@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRecipesTable extends Migration
+class CreateDefaultRecipesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,8 @@ class CreateRecipesTable extends Migration
      */
     public function up()
     {
-        Schema::create('recipes', function (Blueprint $table) {
+        Schema::create('default_recipes', function (Blueprint $table) {
             $table->id();
-            $table->string('device_mac');
-            $table->integer('user_id');
             $table->string('recipe_name');
             $table->integer('fog1_duration');
             $table->integer('fog1_on_minutes');
@@ -43,7 +41,6 @@ class CreateRecipesTable extends Migration
             $table->time('light2_start_time');
             $table->time('light2_end_time');
             $table->integer('humidity');
-            $table->datetime('device_rtc');
             $table->tinyInteger('default');
             $table->timestamps();
         });
@@ -56,6 +53,6 @@ class CreateRecipesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('recipes');
+        Schema::dropIfExists('default_recipes');
     }
 }

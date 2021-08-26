@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
-class AuthorSeeder extends Seeder
+class InputSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -13,6 +13,6 @@ class AuthorSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\Author::factory(5)->create();
+        //
     }
 }
