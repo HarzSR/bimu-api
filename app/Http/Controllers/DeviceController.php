@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\DeviceRequest;
 use App\Http\Resources\DeviceResource;
+use App\Models\DefaultRecipe;
 use App\Models\Device;
+use App\Models\Input;
+use App\Models\Recipe;
 use Illuminate\Http\Request;
 use DB;
 
@@ -19,7 +22,29 @@ class DeviceController extends Controller
     {
         //
 
-        return (DeviceResource::collection(Device::where(['user_id' => auth('api')->user()->id])->get()))->response()->setStatusCode(200);
+        $devices = Device::where(['user_id' => auth('api')->user()->id])->get();
+        $deviceCount = Device::where(['user_id' => auth('api')->user()->id])->count();
+
+        if($deviceCount == 0)
+        {
+            return response()->json([
+                'data' => [
+                    'id' => null,
+                    'type' => 'Device',
+                    'attributes' => [
+                        'name' => null,
+                        'device_mac' => null,
+                        'user_id' => null,
+                        'status' => null,
+                        'success' => 'No',
+                    ]
+                ]
+            ], 200);
+        }
+        else
+        {
+            return (DeviceResource::collection($devices))->response()->setStatusCode(200);
+        }
 
         // return response('Invalid Request', 403);
     }
@@ -55,6 +80,10 @@ class DeviceController extends Controller
             'status' => $data['status'],
         ]);
 
+        $defaultRecipes = DefaultRecipe::get();
+
+        app('App\Http\Controllers\RecipeController')->create($data, $defaultRecipes);
+
         return (new DeviceResource($device))->response()->setStatusCode(200);
     }
 
@@ -81,6 +110,7 @@ class DeviceController extends Controller
                         'device_mac' => null,
                         'user_id' => null,
                         'status' => null,
+                        'success' => 'No',
                     ]
                 ]
             ], 200);
@@ -111,25 +141,55 @@ class DeviceController extends Controller
      * @param  \App\Models\Device  $device
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $mac)
+    public function update($mac, Request $request)
     {
         //
 
         $data = $request->all();
 
-        dd($mac, $data);
+        Device::where(['mac_address' => $mac, 'user_id' => auth('api')->user()->id])->update(['name' => $data["name"], 'status' => $data["status"]]);
+
+        $device = Device::where(['mac_address' => $mac, 'user_id' => auth('api')->user()->id])->first();
+
+        return (new DeviceResource(($device)))->response()->setStatusCode(200);
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Device  $device
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy(Device $device)
+    public function destroy($mac)
     {
         //
 
-        return response('Invalid Request', 403);
+        if(Device::where(['mac_address' => $mac])->delete())
+        {
+            Recipe::where(['device_mac' => $mac, 'user_id' => auth('api')->user()->id])->delete();
+
+            Input::where(['device_mac' => $mac])->delete();
+
+            return response()->json([
+                'data' => [
+                    'type' => 'Device',
+                    'attributes' => [
+                        'success' => 'Yes',
+                    ]
+                ]
+            ], 200);
+        }
+        else
+        {
+            return response()->json([
+                'data' => [
+                    'type' => 'Device',
+                    'attributes' => [
+                        'success' => 'No',
+                        'message' => 'Missing Device',
+                    ]
+                ]
+            ], 200);
+        }
     }
 }

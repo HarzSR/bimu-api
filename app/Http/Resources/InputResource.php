@@ -28,6 +28,7 @@ class InputResource extends JsonResource
                 'ph_probe' => $this->ph_probe,
                 'device_rtc' => $this->device_rtc,
                 'crc' => $this->crc,
+                'success' => 'Yes',
             ]
         ];
     }

@@ -45,6 +45,7 @@ class CreateRecipesTable extends Migration
             $table->integer('humidity');
             $table->datetime('device_rtc');
             $table->tinyInteger('default');
+            $table->tinyInteger('status');
             $table->timestamps();
         });
     }

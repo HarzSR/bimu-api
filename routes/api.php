@@ -25,6 +25,8 @@ Route::middleware('auth:api')->prefix('v1')->group(function() {
     // Route::get('/recipes', [RecipeController::class, 'index']);
 
     Route::apiResource('/recipes', RecipeController::class);
+    Route::get('/recipe/{id}/{mac}', [App\Http\Controllers\RecipeController::class, 'edit']);
+    Route::put('/recipe/{id}/{mac}', [App\Http\Controllers\RecipeController::class, 'update']);
     Route::apiResource('/devices', DeviceController::class);
     Route::apiResource('/inputs', InputController::class);
 });

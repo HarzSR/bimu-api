@@ -15,6 +15,7 @@ class RecipeResource extends JsonResource
     public function toArray($request)
     {
         // return parent::toArray($request);
+
         return [
             'id' => $this->id,
             'type' => 'Recipe',
@@ -49,6 +50,8 @@ class RecipeResource extends JsonResource
                 'humidity' => $this->humidity,
                 'device_rtc' => $this->device_rtc,
                 'default' => $this->default,
+                'status' => $this->status,
+                'success' => 'Yes',
             ]
         ];
     }
