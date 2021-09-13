@@ -16,6 +16,8 @@ use App\Http\Controllers\DeviceController;
 |
 */
 
+Route::post('/v1/register', [App\Http\Controllers\passportAuthController::class,'registerUserExample']);
+
 Route::middleware('auth:api')->prefix('v1')->group(function() {
     Route::get('/user', function(Request $request){
         return $request->user();
