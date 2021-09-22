@@ -10,6 +10,7 @@ use App\Models\Input;
 use App\Models\Recipe;
 use Illuminate\Http\Request;
 use DB;
+use Session;
 
 class DeviceController extends Controller
 {
@@ -191,5 +192,15 @@ class DeviceController extends Controller
                 ]
             ], 200);
         }
+    }
+
+    public function viewDevices()
+    {
+        Session::put('page', 'view-devices');
+
+        // $devices = Device::with('user')->where(['status' => 1])->get();
+        $devices = Device::with('user')->get();
+
+        return view('admin.devices.view_devices')->with(compact('devices'));
     }
 }

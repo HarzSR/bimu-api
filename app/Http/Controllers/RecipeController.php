@@ -8,6 +8,7 @@ use App\Models\Recipe;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Session;
 
 class RecipeController extends Controller
 {
@@ -317,5 +318,14 @@ class RecipeController extends Controller
                 ], 200);
             }
         }
+    }
+
+    public function viewRecipes()
+    {
+        Session::put('page', 'view-recipes');
+
+        $recipes = Recipe::with('device', 'user')->get();
+
+        return view('admin.recipes.view_recipes')->with(compact('recipes'));
     }
 }

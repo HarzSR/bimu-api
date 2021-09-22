@@ -7,6 +7,7 @@ use App\Models\Device;
 use App\Models\Input;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Session;
 
 class InputController extends Controller
 {
@@ -113,5 +114,14 @@ class InputController extends Controller
         //
 
         return response('Invalid Request', 403);
+    }
+
+    public function viewInputs()
+    {
+        Session::put('page', 'view-inputs');
+
+        $inputs = Input::with('device')->latest()->take(10)->get();
+
+        return view('admin.inputs.view_inputs')->with(compact('inputs'));
     }
 }

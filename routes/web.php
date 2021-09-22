@@ -19,7 +19,7 @@ Route::get('/', function () {
 
 Auth::routes();
 
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::match(['get', 'post'], '/iot-push', [App\Http\Controllers\InputController::class, 'store']);
 
@@ -30,5 +30,15 @@ Route::prefix('/admin')->namespace('Admin')->group(function ()
     {
         Route::get('/dashboard', [App\Http\Controllers\Admin\AdminController::class, 'dashboard'])->name('Dashboard');
         Route::get('/logout', [App\Http\Controllers\Admin\AdminController::class, 'logout']);
+
+        Route::get('/view-admins', [App\Http\Controllers\Admin\AdminController::class, 'viewAdmins'])->name('View Admins');
+
+        Route::get('/view-users', [App\Http\Controllers\Admin\UserController::class, 'viewUsers'])->name('View Users');
+
+        Route::get('/view-devices', [App\Http\Controllers\DeviceController::class, 'viewDevices'])->name('View Devices');
+
+        Route::get('/view-inputs', [App\Http\Controllers\InputController::class, 'viewInputs'])->name('View Inputs');
+
+        Route::get('/view-recipes', [App\Http\Controllers\RecipeController::class, 'viewRecipes'])->name('View Recipes');
     });
 });

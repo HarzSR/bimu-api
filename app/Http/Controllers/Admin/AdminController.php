@@ -3,6 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Admin;
+use App\Models\Device;
+use App\Models\Recipe;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Session;
@@ -14,7 +18,19 @@ class AdminController extends Controller
 
     public function dashboard()
     {
-        return view('admin.admin_dashboard');
+        Session::put('page', 'dashboard');
+
+        $userCount = User::count();
+        $userActiveCount = User::where(['status' => 1])->count();
+        $userInactiveCount = User::where(['status' => 0])->count();
+        $deviceCount = Device::count();
+        $deviceActiveCount = Device::where(['status' => 1])->count();
+        $deviceInactiveCount = Device::where(['status' => 0])->count();
+        $recipeCount = Recipe::count();
+        $recipeActiveCount = Recipe::where(['status' => 1])->count();
+        $recipeInactiveCount = Recipe::where(['status' => 0])->count();
+
+        return view('admin.admin_dashboard')->with(compact('userCount', 'userActiveCount', 'userInactiveCount', 'deviceCount', 'deviceActiveCount', 'deviceInactiveCount', 'recipeCount', 'recipeActiveCount', 'recipeInactiveCount'));
     }
 
     // Login Function
@@ -63,9 +79,20 @@ class AdminController extends Controller
     public function logout()
     {
         Session::flush();
+
         Auth::guard('admin')->logout();
+
         Session::flash('success_message', 'Logged Out Successfully');
 
         return redirect('/admin');
+    }
+
+    public function viewAdmins()
+    {
+        Session::put('page', 'view-admins');
+
+        $admins = Admin::get();
+
+        return view('admin.admins.view_admins')->with(compact('admins'));
     }
 }
