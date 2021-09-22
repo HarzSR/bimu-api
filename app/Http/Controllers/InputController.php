@@ -6,6 +6,7 @@ use App\Http\Resources\InputResource;
 use App\Models\Device;
 use App\Models\Input;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class InputController extends Controller
 {
@@ -43,7 +44,11 @@ class InputController extends Controller
     {
         //
 
-        return response('Invalid Request', 403);
+        // return response('Invalid Request', 403);
+
+        $data = $request->all();
+
+        Storage::disk('local')->put('example.txt', $data);
     }
 
     /**

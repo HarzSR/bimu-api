@@ -14,9 +14,21 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('/admin/dashboard');
 });
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::match(['get', 'post'], '/iot-push', [App\Http\Controllers\InputController::class, 'store']);
+
+Route::prefix('/admin')->namespace('Admin')->group(function ()
+{
+    Route::match(['get', 'post'], '/', [App\Http\Controllers\Admin\AdminController::class, 'login'])->name('Login');
+    Route::group(['middleware' => ['admin']], function()
+    {
+        Route::get('/dashboard', [App\Http\Controllers\Admin\AdminController::class, 'dashboard'])->name('Dashboard');
+        Route::get('/logout', [App\Http\Controllers\Admin\AdminController::class, 'logout']);
+    });
+});

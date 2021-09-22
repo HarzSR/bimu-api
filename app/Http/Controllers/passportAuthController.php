@@ -31,9 +31,8 @@ class passportAuthController extends Controller
                 'type' => 'Register',
                 'attributes' => [
                     'success' => 'Yes',
-                    'name' => $request->name,
-                    'password' =>
-                        $request->password
+                    'email' => $request->email,
+                    'password' => $request->password
                 ]
             ]
         ], 200);
