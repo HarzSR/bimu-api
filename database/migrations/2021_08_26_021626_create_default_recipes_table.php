@@ -20,7 +20,7 @@ class CreateDefaultRecipesTable extends Migration
             $table->integer('fog1_on_minutes');
             $table->integer('fog1_off_minutes');
             $table->time('fog1_start_time');
-            $table->time('for1_end_time');
+            $table->time('fog1_end_time');
             $table->integer('fog2_duration');
             $table->integer('fog2_on_minutes');
             $table->integer('fog2_off_minutes');

@@ -22,6 +22,8 @@ Auth::routes();
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+Route::match(['get', 'post'], '/iot-push', [App\Http\Controllers\InputController::class, 'store']);
+
 Route::prefix('/admin')->namespace('Admin')->group(function ()
 {
     Route::match(['get', 'post'], '/', [App\Http\Controllers\Admin\AdminController::class, 'login'])->name('Login');
