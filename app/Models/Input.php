@@ -9,6 +9,8 @@ class Input extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
+
     public function device()
     {
         return $this->belongsTo('App\Models\Device','device_mac','mac_address');

@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\DeviceResource;
 use App\Http\Resources\InputResource;
+use App\Http\Resources\RecipeResource;
+use App\Models\DefaultRecipe;
 use App\Models\Device;
 use App\Models\Input;
+use App\Models\Recipe;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Session;
@@ -49,7 +53,86 @@ class InputController extends Controller
 
         $data = $request->all();
 
-        Storage::disk('local')->put('example.txt', $data);
+        if(isset($data["name"]))
+        {
+            $device = Device::create([
+                'name' => $data['name'],
+                'mac_address' => $data['mac_address'],
+                'user_id' => $data['user_id'],
+                'status' => $data['status'],
+            ]);
+
+            $defaultRecipes = DefaultRecipe::get();
+
+            app('App\Http\Controllers\RecipeController')->create($data, $defaultRecipes);
+
+            return (new DeviceResource($device))->response()->setStatusCode(200);
+        }
+        else if(isset($data["temperature"]))
+        {
+            Input::create([
+                'device_mac' => $data['device_mac'],
+                'temperature' => $data['temperature'],
+                'humidity' => $data['humidity'],
+                'light' => $data['light'],
+                'temperature_probe' => $data['temperature_probe'],
+                'water_level' => $data['water_level'],
+                'ec_probe' => $data['ec_probe'],
+                'ph_probe' => $data['ph_probe'],
+                'device_rtc' => $data['device_rtc'],
+                'crc' => $data['crc'],
+                'status' => 1,
+            ]);
+
+            return response()->json([
+                'data' => [
+                    'type' => 'Input',
+                    'attributes' => [
+                        'success' => 'Yes',
+                    ]
+                ]
+            ], 200);
+        }
+        else if(isset($data["recipe_name"]))
+        {
+            $recipe = Recipe::create([
+                'device_mac' => $data['device_mac'],
+                'user_id' => $data['user_id'],
+                'recipe_name' => $data['recipe_name'],
+                'fog1_duration' => $data['fog1']['duration'],
+                'fog1_on_minutes' => $data['fog1']['on'],
+                'fog1_off_minutes' => $data['fog1']['off'],
+                'fog1_start_time' => $data['fog1']['start'],
+                'fog1_end_time' => $data['fog1']['end'],
+                'fog2_duration' => $data['fog2']['duration'],
+                'fog2_on_minutes' => $data['fog2']['on'],
+                'fog2_off_minutes' => $data['fog2']['off'],
+                'fog2_start_time' => $data['fog2']['start'],
+                'fog2_end_time' => $data['fog2']['end'],
+                'light1_red' => $data['light1']['red'],
+                'light1_blue' => $data['light1']['blue'],
+                'light1_green' => $data['light1']['green'],
+                'light1_white' => $data['light1']['white'],
+                'light1_bright' => $data['light1']['bright'],
+                'light1_start_time' => $data['light1']['start'],
+                'light1_end_time' => $data['light1']['end'],
+                'light2_red' => $data['light2']['red'],
+                'light2_blue' => $data['light2']['blue'],
+                'light2_green' => $data['light2']['green'],
+                'light2_white' => $data['light2']['white'],
+                'light2_bright' => $data['light2']['bright'],
+                'light2_start_time' => $data['light2']['start'],
+                'light2_end_time' => $data['light2']['end'],
+                'humidity' => $data['humidity'],
+                'device_rtc' => $data['device_rtc'],
+                'default' => 0,
+                'status' => 0,
+            ]);
+
+            return (new RecipeResource($recipe))->response()->setStatusCode(200);
+        }
+
+        // Storage::disk('local')->put('example.txt', $data);
     }
 
     /**

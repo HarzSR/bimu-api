@@ -45,7 +45,7 @@ class RecipeController extends Controller
                 'fog1_on_minutes' => $recipe['fog1_on_minutes'],
                 'fog1_off_minutes' => $recipe['fog1_off_minutes'],
                 'fog1_start_time' => $recipe['fog1_start_time'],
-                'for1_end_time' => $recipe['for1_end_time'],
+                'fog1_end_time' => $recipe['fog1_end_time'],
                 'fog2_duration' => $recipe['fog2_duration'],
                 'fog2_on_minutes' => $recipe['fog2_on_minutes'],
                 'fog2_off_minutes' => $recipe['fog2_off_minutes'],
@@ -93,7 +93,7 @@ class RecipeController extends Controller
             'fog1_on_minutes' => $data['fog1_on_minutes'],
             'fog1_off_minutes' => $data['fog1_off_minutes'],
             'fog1_start_time' => $data['fog1_start_time'],
-            'for1_end_time' => $data['for1_end_time'],
+            'fog1_end_time' => $data['fog1_end_time'],
             'fog2_duration' => $data['fog2_duration'],
             'fog2_on_minutes' => $data['fog2_on_minutes'],
             'fog2_off_minutes' => $data['fog2_off_minutes'],
@@ -148,7 +148,7 @@ class RecipeController extends Controller
                         'fog1_on_minutes' => null,
                         'fog1_off_minutes' => null,
                         'fog1_start_time' => null,
-                        'for1_end_time' => null,
+                        'fog1_end_time' => null,
                         'fog2_duration' => null,
                         'fog2_on_minutes' => null,
                         'fog2_off_minutes' => null,
@@ -217,7 +217,7 @@ class RecipeController extends Controller
                         'fog1_on_minutes' => null,
                         'fog1_off_minutes' => null,
                         'fog1_start_time' => null,
-                        'for1_end_time' => null,
+                        'fog1_end_time' => null,
                         'fog2_duration' => null,
                         'fog2_on_minutes' => null,
                         'fog2_off_minutes' => null,
@@ -261,7 +261,7 @@ class RecipeController extends Controller
 
         $data = $request->all();
 
-        Recipe::where(['device_mac' => $mac, 'user_id' => auth('api')->user()->id, 'id' => $id])->update(['device_mac' => $data["device_mac"], 'user_id' => $data["user_id"], 'recipe_name' => $data["recipe_name"], 'fog1_duration' => $data["fog1_duration"], 'fog1_on_minutes' => $data["fog1_on_minutes"], 'fog1_off_minutes' => $data["fog1_off_minutes"], 'fog1_start_time' => $data["fog1_start_time"], 'for1_end_time' => $data["for1_end_time"], 'fog2_duration' => $data["fog2_duration"], 'fog2_on_minutes' => $data["fog2_on_minutes"], 'fog2_off_minutes' => $data["fog2_off_minutes"], 'fog2_start_time' => $data["fog2_start_time"], 'fog2_end_time' => $data["fog2_end_time"], 'light1_red' => $data["light1_red"], 'light1_blue' => $data["light1_blue"], 'light1_green' => $data["light1_green"], 'light1_white' => $data["light1_white"], 'light1_bright' => $data["light1_bright"], 'light1_start_time' => $data["light1_start_time"], 'light1_end_time' => $data["light1_end_time"], 'light2_red' => $data["light2_red"], 'light2_blue' => $data["light2_blue"], 'light2_green' => $data["light2_green"], 'light2_white' => $data["light2_white"], 'light2_bright' => $data["light2_bright"], 'light2_start_time' => $data["light2_start_time"], 'light2_end_time' => $data["light2_end_time"], 'humidity' => $data["humidity"], 'device_rtc' => $data["device_rtc"], 'default' => $data["default"]]);
+        Recipe::where(['device_mac' => $mac, 'user_id' => auth('api')->user()->id, 'id' => $id])->update(['device_mac' => $data["device_mac"], 'user_id' => $data["user_id"], 'recipe_name' => $data["recipe_name"], 'fog1_duration' => $data["fog1_duration"], 'fog1_on_minutes' => $data["fog1_on_minutes"], 'fog1_off_minutes' => $data["fog1_off_minutes"], 'fog1_start_time' => $data["fog1_start_time"], 'fog1_end_time' => $data["fog1_end_time"], 'fog2_duration' => $data["fog2_duration"], 'fog2_on_minutes' => $data["fog2_on_minutes"], 'fog2_off_minutes' => $data["fog2_off_minutes"], 'fog2_start_time' => $data["fog2_start_time"], 'fog2_end_time' => $data["fog2_end_time"], 'light1_red' => $data["light1_red"], 'light1_blue' => $data["light1_blue"], 'light1_green' => $data["light1_green"], 'light1_white' => $data["light1_white"], 'light1_bright' => $data["light1_bright"], 'light1_start_time' => $data["light1_start_time"], 'light1_end_time' => $data["light1_end_time"], 'light2_red' => $data["light2_red"], 'light2_blue' => $data["light2_blue"], 'light2_green' => $data["light2_green"], 'light2_white' => $data["light2_white"], 'light2_bright' => $data["light2_bright"], 'light2_start_time' => $data["light2_start_time"], 'light2_end_time' => $data["light2_end_time"], 'humidity' => $data["humidity"], 'device_rtc' => $data["device_rtc"], 'default' => $data["default"]]);
 
         $recipe = Recipe::where(['device_mac' => $mac, 'user_id' => auth('api')->user()->id, 'id' => $id])->first();
 

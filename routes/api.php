@@ -26,6 +26,8 @@ Route::middleware('auth:api')->prefix('v1')->group(function() {
     // Route::get('/recipes/{id}', [RecipeController::class, 'show']);
     // Route::get('/recipes', [RecipeController::class, 'index']);
 
+    Route::match(['get', 'post'], '/iot-push', [App\Http\Controllers\InputController::class, 'store']);
+
     Route::apiResource('/recipes', RecipeController::class);
     Route::get('/recipe/{id}/{mac}', [App\Http\Controllers\RecipeController::class, 'edit']);
     Route::put('/recipe/{id}/{mac}', [App\Http\Controllers\RecipeController::class, 'update']);

@@ -14,15 +14,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    // return redirect('/admin/dashboard');
-    return view('welcome');
+    return redirect('/admin/dashboard');
+    // return view('welcome');
 });
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Route::match(['get', 'post'], '/iot-push', [App\Http\Controllers\InputController::class, 'store']);
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::prefix('/admin')->namespace('Admin')->group(function ()
 {
